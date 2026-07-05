@@ -3,6 +3,17 @@ import Site from "../layouts/Site.astro";
 
 const projects = [
   {
+    id: "strata",
+    kicker: "Creative engineering · Developer tools",
+    name: "Strata",
+    img: "/img/strata.png",
+    alt: "Strata: Express.js history as a heat-mapped treemap with coupling lines",
+    desc: "Every codebase is a landscape — Strata lets you watch it form. Paste any repository URL and its entire history renders as an animated treemap you scrub through time: files appear, grow, and erode across years. Then the mining layer digs up what teams pay for: hotspots, files that secretly change together, and bus-factor risk.",
+    metrics: ["17y of Express.js ingested in ~10s", "hand-built squarified treemap on canvas", "co-change mining (support/confidence)", "60KB of JavaScript, no chart libraries"],
+    stack: ["Go", "Svelte 5", "TypeScript", "Canvas", "git internals"],
+    repo: "https://github.com/alim596/strata",
+  },
+  {
     id: "meridian",
     kicker: "Real-time systems · Fintech",
     name: "Meridian",
@@ -60,9 +71,9 @@ const projects = [
         <span class="kicker">Projects</span>
         <h2>Built from scratch, measured, shipped</h2>
         <p>
-          Three personal systems and a university capstone. The personal ones share a rule:
-          no framework where the interesting part should be — matching engines, consensus,
-          storage engines are all hand-built, tested, and benchmarked.
+          Four personal systems and a university capstone. They share a rule: no framework
+          where the interesting part should be — matching engines, consensus, storage
+          engines, and visualizations are hand-built, tested, and benchmarked.
         </p>
       </div>
     </div>
