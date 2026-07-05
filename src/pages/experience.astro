@@ -1,0 +1,56 @@
+---
+import Site from "../layouts/Site.astro";
+---
+
+<Site
+  title="Experience — Abdulaleem Altarsha"
+  description="Software Engineer at Radity (Zürich, remote) on a US insurance platform; previously frontend at Rafraf. Bilkent Computer Engineering, class of 2026."
+  active="experience"
+>
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="kicker">Experience</span>
+        <h2>Production systems, real stakes</h2>
+        <p>Insurance platforms where a bad deploy means real policyholders notice.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item reveal">
+          <div class="t-when">MAR 2025 — PRESENT · ZÜRICH, SWITZERLAND (REMOTE)</div>
+          <h3>Radity</h3>
+          <div class="t-role">Software Engineer — Bridger Insurance (US auto-insurance carrier)</div>
+          <ul>
+            <li>Build and maintain full-stack features across a <strong>Java-based Socotra policy-administration core</strong> (event-driven, asynchronous integrations) and a <strong>NestJS/TypeScript microservice layer</strong> that encodes state-regulated business rules.</li>
+            <li><strong>Architected and shipped a custom billing solution end-to-end</strong> — NestJS microservices, queue workers, integrations — after the platform couldn't satisfy a key contractual client requirement. Validated with product and QA; unblocked a launch the client couldn't have made otherwise.</li>
+            <li>Shipped <strong>200+ production tickets</strong> across quoting, underwriting, endorsements, cancellations, reinstatements, and billing — sustaining release velocity on a multi-state platform under aggressive timelines.</li>
+            <li>Resolved high-impact production incidents by <strong>tracing failures across distributed event handlers</strong>, microservices, and persisted state — improving stability and reducing recurrence.</li>
+            <li>Independently surfaced and triaged <strong>65+ production defects</strong> with root-cause analysis, partnering with QA, product, and offshore engineering.</li>
+            <li>Authored Rater API test cases; led end-to-end testing for cancellation/reinstatement flows; extended React front-ends wired into microservices and webhook integrations.</li>
+          </ul>
+        </div>
+
+        <div class="t-item reveal">
+          <div class="t-when">AUG 2024 — MAR 2025 · JEDDAH, SAUDI ARABIA</div>
+          <h3>Rafraf</h3>
+          <div class="t-role">Frontend Developer — CRM platform</div>
+          <ul>
+            <li>Led front-end development of the CRM serving day-to-day customer operations — React/Node interfaces over <strong>REST and GraphQL APIs</strong>.</li>
+            <li>Owned complex third-party integrations; implemented <strong>input validation and security hardening</strong> on customer-facing flows to reduce data-exposure risk.</li>
+            <li>Translated ambiguous requirements into shipped features — regularly the bridge between stakeholders and engineering.</li>
+          </ul>
+        </div>
+
+        <div class="t-item reveal">
+          <div class="t-when">SEP 2022 — MAY 2026 · ANKARA, TÜRKİYE</div>
+          <h3>Bilkent University</h3>
+          <div class="t-role">B.Sc. Computer Engineering</div>
+          <ul>
+            <li>Data structures, algorithms, OOP (Java), database systems, operating systems, software engineering, software architecture design.</li>
+            <li>Senior capstone: <strong>Accentra</strong> — AI language-learning platform; led infrastructure, CI, and Instructor Mode in a team of five. <a href="/projects#accentra">Details →</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</Site>

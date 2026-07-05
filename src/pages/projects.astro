@@ -1,0 +1,99 @@
+---
+import Site from "../layouts/Site.astro";
+
+const projects = [
+  {
+    id: "meridian",
+    kicker: "Real-time systems · Fintech",
+    name: "Meridian",
+    img: "/img/meridian.png",
+    alt: "Meridian terminal: live candles, order book ladder, news wire, algo deck",
+    desc: "A self-contained financial exchange. A Go matching engine runs price-time-priority order books; an agent-based simulation with a news engine keeps markets alive (and occasionally halts them with circuit breakers); anyone can deploy momentum, mean-reversion, or market-making bots and watch the leaderboard decide who eats whom.",
+    metrics: ["2.2M ops/s matching", "458 ns/op · 2 allocs", "event-sourced journal + replay", "volatility circuit breakers"],
+    stack: ["Go", "React", "TypeScript", "WebSocket", "Docker"],
+    repo: "https://github.com/alim596/meridian",
+  },
+  {
+    id: "quorum",
+    kicker: "Distributed systems",
+    name: "Quorum",
+    img: "/img/quorum.png",
+    alt: "Quorum chaos lab: five-node Raft cluster with animated messages",
+    desc: "The Raft consensus algorithm implemented from scratch — no libraries — as a pure state machine, driven identically by a live browser chaos lab and a deterministic simulator. Click a node to crash it, partition the network mid-write, and watch a minority-side leader accept a proposal it can never commit.",
+    metrics: ["40 seeded chaos schedules per CI run", "election safety · log matching · leader completeness, machine-checked", "identical seeds ⇒ identical histories"],
+    stack: ["Go", "TypeScript", "SVG", "WebSocket"],
+    repo: "https://github.com/alim596/quorum",
+  },
+  {
+    id: "argus",
+    kicker: "Data infrastructure · Observability",
+    name: "Argus",
+    img: "/img/argus.png",
+    alt: "Argus overview: service health tiles and latency charts during a live incident",
+    desc: "A full observability platform built from the storage engine up: a custom time-series database with Gorilla compression, a PromQL-style query language with a hand-written parser, real OpenTelemetry ingest, distributed traces, live-tail logs, and an alerting state machine. Grafana can use it as a datasource.",
+    metrics: ["1.11 bytes/sample (vs 16 raw)", "160 ns appends, zero allocs", "OTLP in · Prometheus API out", "WAL crash recovery, fuzz-tested codec"],
+    stack: ["Go", "OpenTelemetry", "React", "uPlot"],
+    repo: "https://github.com/alim596/argus",
+  },
+  {
+    id: "accentra",
+    kicker: "AI · Senior capstone (team of 5)",
+    name: "Accentra",
+    img: null,
+    alt: "",
+    desc: "An AI-powered language-learning platform delivering CEFR-aligned exams with phoneme-level pronunciation feedback (wav2vec2 + CTC + GOP scoring) and multi-agent LangGraph pipelines for exam generation. I led infrastructure — Docker, GitHub Actions CI, Git workflow — plus the API client layer and the entire Instructor Mode.",
+    metrics: ["CEFR-aligned exam engine", "phoneme-level pronunciation scoring", "multi-agent generation pipelines"],
+    stack: ["Next.js", "FastAPI", "PostgreSQL", "LangGraph", "wav2vec2", "Docker"],
+    repo: null,
+  },
+];
+---
+
+<Site
+  title="Projects — Abdulaleem Altarsha"
+  description="Meridian (exchange), Quorum (Raft consensus), Argus (observability platform), Accentra (AI language learning) — systems built from scratch with measured benchmarks."
+  active="projects"
+>
+  <section class="band" style="padding-bottom: 0;">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="kicker">Projects</span>
+        <h2>Built from scratch, measured, shipped</h2>
+        <p>
+          Three personal systems and a university capstone. The personal ones share a rule:
+          no framework where the interesting part should be — matching engines, consensus,
+          storage engines are all hand-built, tested, and benchmarked.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {projects.map((p, i) => (
+      <article class={`project reveal ${i % 2 === 1 ? "flip" : ""}`} id={p.id}>
+        {p.img ? (
+          <a class="media" href={p.repo ?? "#"} aria-label={`${p.name} repository`}>
+            <img src={p.img} alt={p.alt} loading={i === 0 ? "eager" : "lazy"} />
+          </a>
+        ) : (
+          <div class="media-alt"><span>accentra</span></div>
+        )}
+        <div>
+          <span class="kicker">{p.kicker}</span>
+          <h3>{p.name}</h3>
+          <p class="desc">{p.desc}</p>
+          <div class="metrics">
+            {p.metrics.map((m) => <span class="metric">{m}</span>)}
+          </div>
+          <div class="stack-row">
+            {p.stack.map((s) => <span class="chip">{s}</span>)}
+          </div>
+          <div class="plinks">
+            {p.repo && <a href={p.repo}>View on GitHub ↗</a>}
+            {!p.repo && <span style="color: var(--ink-3); font-weight: 500;">University project — code on request</span>}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</Site>

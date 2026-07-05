@@ -1,0 +1,83 @@
+---
+import Site from "../layouts/Site.astro";
+
+const skills: { k: string; items: string[] }[] = [
+  { k: "Languages", items: ["Java", "TypeScript", "JavaScript", "Go", "Python", "C++", "SQL"] },
+  { k: "Backend & architecture", items: ["NestJS", "Spring Boot", "FastAPI", "microservices", "event-driven systems", "REST", "GraphQL", "JWT / OAuth", "Socotra platform"] },
+  { k: "Frontend", items: ["React", "Next.js", "Astro", "Redux", "Tailwind", "design systems"] },
+  { k: "Data & DevOps", items: ["PostgreSQL", "MongoDB", "schema design", "Docker", "GitHub Actions", "Postman", "Jira"] },
+];
+---
+
+<Site
+  title="About — Abdulaleem Altarsha"
+  description="Software engineer in Ankara working remotely for Zürich. Trilingual, systems-curious, allergic to untested code."
+  active="about"
+>
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="kicker">About</span>
+        <h2>The person behind the commits</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="bio reveal">
+          <p>
+            I'm a software engineer based in <strong>Ankara</strong>, working remotely with a
+            <strong>Zürich</strong> team on a US insurance platform — which means my day already
+            spans eleven timezones before I've had coffee.
+          </p>
+          <p>
+            Professionally I live in the full stack: an event-driven Java core, NestJS microservices,
+            React front-ends, and the production incidents that teach you more than any course.
+            My favorite kind of ticket is the one where the bug is <strong>three services away
+            from the symptom</strong>.
+          </p>
+          <p>
+            Outside work I rebuild the infrastructure everyone else imports —
+            <strong>a matching engine, a consensus protocol, a time-series database</strong> —
+            because knowing how things work underneath is the difference between using a tool
+            and understanding a system. Each one ships with benchmarks, green CI, and a section
+            titled "honest limitations."
+          </p>
+          <p>
+            I speak <strong>English and Arabic natively</strong>, Turkish conversationally, and
+            fluent code review. Graduating from <strong>Bilkent University</strong> (Computer
+            Engineering) in 2026.
+          </p>
+          <p style="font-size: 14.5px; color: var(--ink-3);">
+            Certifications: Coursera — Programming Foundations with JS/HTML/CSS (with Honors);
+            Python series (Databases, Web Data, Visualization); Intro to Cybersecurity Tools
+            &amp; Cyber Attacks.
+          </p>
+        </div>
+
+        <div class="reveal">
+          {skills.map((g) => (
+            <div class="skill-group">
+              <div class="k">{g.k}</div>
+              <div class="chips">
+                {g.items.map((s) => <span class="chip">{s}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="contact-card reveal" id="contact">
+        <div>
+          <h2>Let's build something that holds up.</h2>
+          <p>
+            Open to backend, full-stack, and platform roles — remote or hybrid.
+            The fastest way to reach me is email; the fastest way to evaluate me is the repos.
+          </p>
+        </div>
+        <div class="btn-row">
+          <a class="btn solid" href="mailto:abdulaleemtarshah@gmail.com">Email me</a>
+          <a class="btn ghost" href="/Abdulaleem_Altarsha_CV.pdf">CV (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Site>

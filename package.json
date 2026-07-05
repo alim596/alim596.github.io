@@ -11,6 +11,8 @@
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.2.5",
     "@fontsource/ibm-plex-sans": "^5.2.5",
+    "@fontsource/manrope": "^5.2.8",
+    "@fontsource/sora": "^5.2.8",
     "astro": "^5.8.0"
   }
 }

@@ -1,391 +1,147 @@
 ---
-import "@fontsource/ibm-plex-sans/400.css";
-import "@fontsource/ibm-plex-sans/500.css";
-import "@fontsource/ibm-plex-sans/600.css";
-import "@fontsource/ibm-plex-sans/700.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/600.css";
-import "../styles/global.css";
+import Site from "../layouts/Site.astro";
 
-const rev = "Rev. 2026-07";
-
-// Pins pair the diagram with the skill domains they energize.
-const pins = [
-  { n: 1, name: "JAVA", domain: "backend" },
-  { n: 2, name: "TS/JS", domain: "backend" },
-  { n: 3, name: "GO", domain: "systems" },
-  { n: 4, name: "PYTHON", domain: "backend" },
-  { n: 5, name: "SQL", domain: "data" },
-  { n: 6, name: "C++", domain: "systems" },
-  { n: 7, name: "REACT", domain: "frontend" },
-  { n: 8, name: "NESTJS", domain: "backend" },
-  { n: 9, name: "SPRING", domain: "backend" },
-  { n: 10, name: "FASTAPI", domain: "backend" },
-  { n: 11, name: "PG/MONGO", domain: "data" },
-  { n: 12, name: "DOCKER", domain: "devops" },
-  { n: 13, name: "CI/CD", domain: "devops" },
-  { n: 14, name: "GND", domain: "ground" },
-];
-
-const pinDesc: Record<string, { fn: string; desc: string }> = {
-  backend: { fn: "Primary supply", desc: "Java · TypeScript/NestJS · Spring Boot · FastAPI — production services, REST/GraphQL, event-driven messaging, JWT/OAuth" },
-  systems: { fn: "High-current output", desc: "Go & C++ — matching engines, Raft consensus, storage engines, lock-free hot paths" },
-  frontend: { fn: "Display driver", desc: "React · Next.js · Redux · Tailwind — four shipped UIs with four distinct design systems" },
-  data: { fn: "Persistent storage bus", desc: "PostgreSQL · MongoDB · schema design · a hand-built time-series database" },
-  devops: { fn: "Clock & housekeeping", desc: "Docker · GitHub Actions CI/CD · Postman · Jira — every personal repo ships with green CI" },
-  ground: { fn: "Ground", desc: "Connect to strong coffee. Do not float." },
-};
-
-const designs = [
+const featured = [
   {
-    id: "RD-001",
-    name: "Meridian",
+    href: "/projects#meridian",
     img: "/img/meridian.png",
-    alt: "Meridian trading terminal: candles, order book ladder, news wire",
-    desc: "A real-time financial exchange: price-time priority matching engine (~2.2M ops/s, 458ns/op), news-driven market simulation, circuit breakers, deployable trading bots, and a Bloomberg-style terminal.",
-    tags: ["Go", "React", "WebSocket", "event sourcing"],
-    repo: "https://github.com/alim596/meridian",
+    alt: "Meridian trading terminal",
+    name: "Meridian",
+    tag: "GO · REACT",
+    blurb: "A real-time exchange with a 2.2M ops/s matching engine, news-driven markets, and a Bloomberg-style terminal.",
   },
   {
-    id: "RD-002",
-    name: "Quorum",
+    href: "/projects#quorum",
     img: "/img/quorum.png",
-    alt: "Quorum chaos lab: five-node Raft cluster visualization",
-    desc: "Raft consensus implemented from scratch, verified by a deterministic chaos simulator (40 seeded schedules per CI run asserting the paper's safety invariants), with a browser lab for crashing leaders and partitioning the network live.",
-    tags: ["Go", "distributed systems", "TypeScript", "SVG"],
-    repo: "https://github.com/alim596/quorum",
+    alt: "Quorum Raft chaos lab",
+    name: "Quorum",
+    tag: "DISTRIBUTED SYSTEMS",
+    blurb: "Raft consensus from scratch — with a browser chaos lab for crashing leaders and partitioning the network live.",
   },
   {
-    id: "RD-003",
-    name: "Argus",
+    href: "/projects#argus",
     img: "/img/argus.png",
-    alt: "Argus observability platform: service tiles and latency charts during an incident",
-    desc: "An observability platform built from the storage engine up: Gorilla-compressed TSDB (1.1 bytes/sample), a PromQL-style query language, real OTLP ingest, traces, logs, and alerting — Grafana can use it as a datasource.",
-    tags: ["Go", "OpenTelemetry", "compression", "React"],
-    repo: "https://github.com/alim596/argus",
-  },
-  {
-    id: "RD-004",
-    name: "Accentra",
-    img: null,
-    alt: "",
-    desc: "AI-powered language-learning platform (CS 491/492 senior capstone, team of 5): CEFR-aligned exams with phoneme-level pronunciation feedback via wav2vec2 + CTC + GOP, multi-agent LangGraph exam generation. Led infrastructure, CI, the API client layer, and Instructor Mode end-to-end.",
-    tags: ["Next.js", "FastAPI", "LangGraph", "wav2vec2", "PostgreSQL"],
-    repo: null,
+    alt: "Argus observability platform",
+    name: "Argus",
+    tag: "OBSERVABILITY",
+    blurb: "Metrics, traces, logs, and alerting built from the storage engine up. Speaks OTLP in, Prometheus out.",
   },
 ];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Abdulaleem Altarsha — Software Engineer (datasheet)</title>
-    <meta
-      name="description"
-      content="Datasheet for AA-2026: general-purpose software engineer. Full-stack production experience on distributed insurance platforms; builds exchanges, consensus protocols, and observability platforms for fun."
-    />
-    <meta property="og:title" content="Abdulaleem Altarsha — engineer datasheet" />
-    <meta property="og:description" content="General-purpose software engineer, in production since 2022. See §6 Reference Designs." />
-  </head>
-  <body>
-    <div class="sheet">
-      <header class="masthead">
-        <span class="doc-id">DOC. NO. AA-2026-CV</span>
-        <span>{rev} · supersedes all prior résumés</span>
-        <span class="no-print"><a href="/Abdulaleem_Altarsha_CV.pdf">Download PDF ↓</a></span>
-      </header>
-
-      <div class="titleblock">
-        <div class="part-number">AA-2026 · GENERAL-PURPOSE SOFTWARE ENGINEER</div>
-        <h1>Abdulaleem Altarsha</h1>
-        <p class="subtitle">
-          Full-stack engineer shipping production features on distributed insurance platforms by day;
-          builds exchanges, consensus protocols, and observability platforms after hours.
-        </p>
-        <div class="status-row">
-          <span class="badge ok">● In production since 2022</span>
-          <span class="badge signal">Available for integration</span>
-          <span class="badge plain">Ankara, Türkiye · Remote-proven (CH)</span>
-        </div>
+<Site
+  title="Abdulaleem Altarsha — Software Engineer"
+  description="Full-stack engineer shipping production insurance systems; builds exchanges, consensus protocols, and observability platforms. Ankara → the world."
+  active="home"
+>
+  <header class="hero">
+    <canvas id="dots" aria-hidden="true"></canvas>
+    <div class="wrap hero-content">
+      <span class="kicker">Software Engineer · Full-Stack</span>
+      <h1>I build systems<br />that <span class="accent">hold up</span>.</h1>
+      <p class="lede">
+        By day I ship production features for a <strong>US insurance platform</strong> at Radity —
+        event-driven Java core, NestJS microservices, React front-ends. After hours I build
+        <strong>exchanges, consensus protocols, and observability platforms</strong> from scratch,
+        with the benchmarks to prove they work.
+      </p>
+      <div class="btn-row">
+        <a class="btn solid" href="/projects">See the work →</a>
+        <a class="btn ghost" href="https://github.com/alim596">GitHub</a>
+        <a class="btn ghost" href="mailto:abdulaleemtarshah@gmail.com">Get in touch</a>
       </div>
-
-      <!-- 1. FEATURES -->
-      <section id="features">
-        <div class="sec-head">
-          <span class="sec-num">1</span>
-          <h2>Features</h2>
-          <span class="sec-note">see §5 for reference designs</span>
-        </div>
-        <div class="feat-grid">
-          <ul class="spec-list">
-            <li><strong>200+ production tickets</strong> shipped on a multi-state US auto-insurance platform (quoting, underwriting, endorsements, cancellations, billing) under aggressive deadlines</li>
-            <li><strong>Architected a custom billing system end-to-end</strong> — NestJS microservices, queue workers, integrations — when the core platform couldn't meet a contractual client requirement</li>
-            <li><strong>Debugs across service boundaries</strong>: resolved high-impact incidents in event-driven billing flows by tracing failures through distributed handlers and persisted state; 65+ defects surfaced &amp; triaged independently</li>
-            <li><strong>Systems range</strong>: matching engines, Raft consensus, time-series storage — with measured benchmarks and CI-checked invariants, not just claims</li>
-            <li>Clear communicator across QA, product, and offshore teams; bridges stakeholders and engineering</li>
-          </ul>
-          <div>
-            <table class="spec">
-              <thead><tr><th>Application</th><th class="c">Fit</th></tr></thead>
-              <tbody>
-                <tr><td>Backend / distributed systems</td><td class="c mono">●●●</td></tr>
-                <tr><td>Full-stack product engineering</td><td class="c mono">●●●</td></tr>
-                <tr><td>Platform / infrastructure</td><td class="c mono">●●○</td></tr>
-                <tr><td>Frontend &amp; design systems</td><td class="c mono">●●○</td></tr>
-                <tr><td>Writing code without tests</td><td class="c mono">not recommended<sup>1</sup></td></tr>
-              </tbody>
-            </table>
-            <p class="footnote"><sup>1</sup> Operating outside rated conditions voids the warranty.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2. PIN CONFIGURATION -->
-      <section id="pins">
-        <div class="sec-head">
-          <span class="sec-num">2</span>
-          <h2>Pin Configuration</h2>
-          <span class="sec-note">hover a pin</span>
-        </div>
-        <div class="pin-wrap">
-          <svg width="330" height="330" viewBox="0 0 330 330" role="img" aria-label="Chip pin diagram of skills">
-            <!-- legs: 7 per side -->
-            {pins.slice(0, 7).map((p, i) => (
-              <g class="pin pin-hit" data-domain={p.domain}>
-                <rect class="pin-leg" x="52" y={62 + i * 30} width="28" height="8" rx="1.5" />
-                <text class="pin-label" x="44" y={70 + i * 30} text-anchor="end">{p.name}</text>
-                <text class="pin-num" x="88" y={70 + i * 30}>{p.n}</text>
-              </g>
-            ))}
-            {pins.slice(7).map((p, i) => (
-              <g class="pin pin-hit" data-domain={p.domain}>
-                <rect class="pin-leg" x="250" y={62 + i * 30} width="28" height="8" rx="1.5" />
-                <text class="pin-label" x="286" y={70 + i * 30}>{p.name}</text>
-                <text class="pin-num" x="236" y={70 + i * 30} text-anchor="end">{p.n}</text>
-              </g>
-            ))}
-            <rect class="chip-body" x="80" y="40" width="170" height="250" rx="6" />
-            <circle cx="100" cy="60" r="6" fill="#faf7f2" opacity="0.9" />
-            <text class="chip-text" x="165" y="150" text-anchor="middle" font-size="20" font-weight="600" letter-spacing="4">AA-2026</text>
-            <text class="chip-text" x="165" y="172" text-anchor="middle" font-size="9" opacity="0.75" letter-spacing="2">BILKENT CE · B.SC 2026</text>
-            <text class="chip-text" x="165" y="188" text-anchor="middle" font-size="9" opacity="0.75" letter-spacing="2">EN·AR NATIVE / TR CONV.</text>
-          </svg>
-          <table class="spec pin-desc">
-            <thead><tr><th>Pin group</th><th>Function</th><th>Description</th></tr></thead>
-            <tbody>
-              {Object.entries(pinDesc).map(([domain, d]) => (
-                <tr class="pinrow" data-domain={domain}>
-                  <td>{domain.toUpperCase()}</td>
-                  <td>{d.fn}</td>
-                  <td>{d.desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 3. ELECTRICAL CHARACTERISTICS -->
-      <section id="specs">
-        <div class="sec-head">
-          <span class="sec-num">3</span>
-          <h2>Operating Characteristics</h2>
-          <span class="sec-note">T<sub>A</sub> = deadline unless otherwise noted</span>
-        </div>
-        <table class="spec">
-          <thead>
-            <tr><th>Parameter</th><th>Test conditions</th><th class="c">Min</th><th class="c">Typ</th><th class="c">Max</th><th class="c">Unit</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="param">Production tickets shipped</td><td>Radity · multi-state US insurance platform</td><td class="c mono">—</td><td class="c mono">200</td><td class="c mono">∞</td><td class="c mono">tickets</td></tr>
-            <tr><td class="param">Defects surfaced &amp; triaged</td><td>independently, with root-cause analysis</td><td class="c mono">—</td><td class="c mono">65</td><td class="c mono">—</td><td class="c mono">defects</td></tr>
-            <tr class="hl"><td class="param">Order-book throughput</td><td>Meridian matching engine, i7 laptop</td><td class="c mono">—</td><td class="c mono">2.2M</td><td class="c mono">—</td><td class="c mono">ops/s</td></tr>
-            <tr><td class="param">Consensus safety violations</td><td>Quorum · 40 seeded chaos schedules / CI run</td><td class="c mono">0</td><td class="c mono">0</td><td class="c mono">0</td><td class="c mono">count</td></tr>
-            <tr><td class="param">TSDB storage cost</td><td>Argus · Gorilla codec, by value entropy</td><td class="c mono">1.11</td><td class="c mono">2.65</td><td class="c mono">7.77</td><td class="c mono">B/sample</td></tr>
-            <tr><td class="param">Human languages</td><td>English, Arabic (native) · Turkish (conv.)</td><td class="c mono">2</td><td class="c mono">—</td><td class="c mono">3</td><td class="c mono">langs</td></tr>
-            <tr><td class="param">Timezone tolerance</td><td>Zürich team, Ankara desk, US client</td><td class="c mono">−8</td><td class="c mono">—</td><td class="c mono">+3</td><td class="c mono">UTC</td></tr>
-          </tbody>
-        </table>
-        <p class="footnote">All figures measured, not estimated. Benchmarks reproducible from the linked repositories (§6).</p>
-      </section>
-
-      <!-- 4. TYPICAL APPLICATIONS -->
-      <section id="experience">
-        <div class="sec-head">
-          <span class="sec-num">4</span>
-          <h2>Typical Application Circuits</h2>
-          <span class="sec-note">a.k.a. experience</span>
-        </div>
-
-        <div class="xp">
-          <div class="xp-meta">
-            <div class="co">Radity</div>
-            <div>Software Engineer</div>
-            <div>Mar 2025 – present</div>
-            <div>Zürich · remote</div>
-          </div>
-          <div>
-            <h3>Full-stack engineer on Bridger Insurance — a US auto-insurance carrier on the Socotra platform</h3>
-            <ul>
-              <li>Build production features across a <strong>Java-based Socotra core</strong> (event-driven) and a <strong>NestJS/TypeScript microservice layer</strong> encoding state-regulated business rules.</li>
-              <li><strong>Architected and shipped a custom billing solution end-to-end</strong> — microservices, queue workers, integrations — unblocking a contractual client requirement the platform couldn't satisfy.</li>
-              <li>Shipped <strong>200+ tickets</strong> across quoting, underwriting, endorsements, cancellations, reinstatements, and billing while sustaining release velocity.</li>
-              <li>Resolved high-impact production incidents by <strong>tracing failures across distributed event handlers</strong> and persisted state; surfaced and triaged 65+ defects with QA, product, and offshore teams.</li>
-              <li>Authored Rater API test cases; led end-to-end testing of cancellation/reinstatement flows; extended React front-ends wired into microservices and webhooks.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="xp">
-          <div class="xp-meta">
-            <div class="co">Rafraf</div>
-            <div>Frontend Developer</div>
-            <div>Aug 2024 – Mar 2025</div>
-            <div>Jeddah, KSA</div>
-          </div>
-          <div>
-            <h3>Led front-end development of the company's CRM platform</h3>
-            <ul>
-              <li>Built React/Node interfaces over REST and GraphQL APIs powering daily customer operations.</li>
-              <li>Owned third-party integrations; implemented <strong>input validation and security hardening</strong> on customer-facing flows.</li>
-              <li>Translated ambiguous requirements into shipped features — the bridge between stakeholders and engineering.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="xp" style="border-bottom: none;">
-          <div class="xp-meta">
-            <div class="co">Bilkent University</div>
-            <div>B.Sc. Computer Eng.</div>
-            <div>2022 – 2026</div>
-            <div>Ankara, Türkiye</div>
-          </div>
-          <div>
-            <h3>Computer Engineering</h3>
-            <ul>
-              <li>Data structures, algorithms, OOP (Java), database systems, operating systems, software engineering &amp; architecture.</li>
-              <li>Senior capstone: <strong>Accentra</strong> (see RD-004) — led infrastructure, CI, and Instructor Mode in a team of five.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. REFERENCE DESIGNS -->
-      <section id="projects">
-        <div class="sec-head">
-          <span class="sec-num">5</span>
-          <h2>Reference Designs</h2>
-          <span class="sec-note">click through — every claim has a repo</span>
-        </div>
-        <div class="designs">
-          {designs.map((d) => (
-            <article class="design">
-              {d.img ? (
-                <a href={d.repo ?? "#"} aria-label={`${d.name} repository`}>
-                  <img class="shot" src={d.img} alt={d.alt} />
-                </a>
-              ) : (
-                <div class="shot-placeholder">
-                  <span>DIE PHOTO UNAVAILABLE</span>
-                  <span>(university capstone · team project)</span>
-                </div>
-              )}
-              <div class="design-body">
-                <div class="design-title">
-                  <span class="id">{d.id}</span>
-                  <span class="name">{d.name}</span>
-                </div>
-                <p>{d.desc}</p>
-                <div class="tags">{d.tags.map((t) => <span class="tag">{t}</span>)}</div>
-                {d.repo && (
-                  <div class="links">
-                    <a href={d.repo}>github ↗</a>
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <!-- 6. ABSOLUTE MAXIMUM RATINGS -->
-      <section id="ratings">
-        <div class="sec-head">
-          <span class="sec-num">6</span>
-          <h2>Absolute Maximum Ratings</h2>
-          <span class="sec-note">stresses beyond these may cause permanent damage</span>
-        </div>
-        <table class="spec">
-          <thead><tr><th>Stress condition</th><th class="c">Rating</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Meetings that could have been a message</td><td class="c mono">3 / day</td><td>derate linearly above 2</td></tr>
-            <tr><td>"Quick call?" during deep work</td><td class="c mono">1 / day</td><td>exceeds absolute maximum immediately</td></tr>
-            <tr><td>Untested code in production</td><td class="c mono">0</td><td>hard limit; see §1 footnote</td></tr>
-            <tr><td>Curiosity about how things work underneath</td><td class="c mono">unbounded</td><td>this rating cannot be exceeded</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- 7. ORDERING INFORMATION -->
-      <section id="contact">
-        <div class="sec-head">
-          <span class="sec-num">7</span>
-          <h2>Ordering Information</h2>
-          <span class="sec-note">lead time: one email</span>
-        </div>
-        <div class="contact-grid">
-          <div class="order-cell">
-            <div class="k">Email</div>
-            <div class="v"><a href="mailto:abdulaleemtarshah@gmail.com">abdulaleemtarshah@gmail.com</a></div>
-            <button class="no-print" data-copy="abdulaleemtarshah@gmail.com">copy</button>
-          </div>
-          <div class="order-cell">
-            <div class="k">GitHub</div>
-            <div class="v"><a href="https://github.com/alim596">github.com/alim596</a></div>
-          </div>
-          <div class="order-cell">
-            <div class="k">LinkedIn</div>
-            <div class="v"><a href="https://www.linkedin.com/in/abdulaleem-altarsha-159469242/">abdulaleem-altarsha</a></div>
-          </div>
-          <div class="order-cell">
-            <div class="k">Package</div>
-            <div class="v">Remote / hybrid · based in Ankara, TR</div>
-          </div>
-        </div>
-        <a class="cta" href="mailto:abdulaleemtarshah@gmail.com?subject=Integration%20inquiry%20%E2%80%94%20AA-2026">Request evaluation unit →</a>
-        <a class="cta ghost no-print" href="/Abdulaleem_Altarsha_CV.pdf">Formal PDF datasheet</a>
-      </section>
-
-      <footer class="colophon">
-        <span>© 2026 Abdulaleem Altarsha · hand-built with Astro, no template</span>
-        <span>errata: none known · report issues via email</span>
-        <span class="no-print">this page prints as a real datasheet — try it</span>
-      </footer>
+      <div class="hero-meta">
+        <span><b class="pulse">●</b> open to opportunities</span>
+        <span>currently <b>SWE @ Radity</b> (Zürich, remote)</span>
+        <span><b>Bilkent CE</b> · class of 2026</span>
+        <span>Ankara, Türkiye</span>
+      </div>
     </div>
+  </header>
 
-    <script>
-      // pin diagram ↔ description table cross-highlighting
-      const groups = document.querySelectorAll<SVGGElement>("g.pin");
-      const rows = document.querySelectorAll<HTMLTableRowElement>("tr.pinrow");
-      const setActive = (domain: string | null) => {
-        groups.forEach((g) => g.classList.toggle("active", g.dataset.domain === domain));
-        rows.forEach((r) => r.classList.toggle("active", r.dataset.domain === domain));
+  <section class="band alt">
+    <div class="wrap">
+      <div class="band-head reveal">
+        <span class="kicker">Selected work</span>
+        <h2>Three systems, built to be interrogated</h2>
+        <p>Every claim links to a repo with green CI, measured benchmarks, and an honest limitations section.</p>
+      </div>
+      <div class="feat-cards">
+        {featured.map((f, i) => (
+          <a class={`fcard reveal`} style={`transition-delay:${i * 90}ms`} href={f.href}>
+            <div class="thumb"><img src={f.img} alt={f.alt} loading={i === 0 ? "eager" : "lazy"} /></div>
+            <div class="fcard-body">
+              <div class="name">{f.name}<span class="mono">{f.tag}</span></div>
+              <p>{f.blurb}</p>
+              <div class="go">Explore →</div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="center-cta reveal">
+        <a class="btn ghost" href="/projects">All projects, in depth →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Hero: a quiet field of ink dots that leans away from the cursor.
+    function initDots() {
+      const canvas = document.getElementById("dots") as HTMLCanvasElement | null;
+      if (!canvas || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const ctx = canvas.getContext("2d")!;
+      let w = 0, h = 0, raf = 0;
+      const GAP = 34;
+      let dots: { x: number; y: number; ox: number; oy: number }[] = [];
+      const mouse = { x: -9999, y: -9999 };
+
+      const build = () => {
+        const rect = canvas.getBoundingClientRect();
+        w = canvas.width = rect.width * devicePixelRatio;
+        h = canvas.height = rect.height * devicePixelRatio;
+        dots = [];
+        for (let y = GAP; y < rect.height; y += GAP) {
+          for (let x = GAP; x < rect.width; x += GAP) {
+            dots.push({ x, y, ox: x, oy: y });
+          }
+        }
       };
-      [...groups, ...rows].forEach((el) => {
-        el.addEventListener("mouseenter", () => setActive((el as HTMLElement).dataset.domain ?? null));
-        el.addEventListener("mouseleave", () => setActive(null));
-      });
 
-      // copy-email affordance
-      document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          await navigator.clipboard.writeText(btn.dataset.copy!);
-          const prev = btn.textContent;
-          btn.textContent = "copied ✓";
-          setTimeout(() => (btn.textContent = prev), 1400);
-        });
-      });
-    </script>
-  </body>
-</html>
+      const step = () => {
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+        for (const d of dots) {
+          const dx = d.x - mouse.x;
+          const dy = d.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          const push = Math.max(0, 1 - dist / 130);
+          const tx = d.ox + (dx / (dist || 1)) * push * 26;
+          const ty = d.oy + (dy / (dist || 1)) * push * 26;
+          d.x += (tx - d.x) * 0.12;
+          d.y += (ty - d.y) * 0.12;
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, push > 0.02 ? 2.1 : 1.4, 0, Math.PI * 2);
+          ctx.fillStyle = push > 0.02 ? "rgba(25,72,209,0.55)" : "rgba(22,21,15,0.14)";
+          ctx.fill();
+        }
+        raf = requestAnimationFrame(step);
+      };
+
+      const onMove = (e: MouseEvent) => {
+        const r = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      };
+      const onLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+
+      build();
+      addEventListener("resize", build);
+      canvas.parentElement!.addEventListener("mousemove", onMove);
+      canvas.parentElement!.addEventListener("mouseleave", onLeave);
+      cancelAnimationFrame(raf);
+      step();
+    }
+    initDots();
+    document.addEventListener("astro:page-load", initDots);
+  </script>
+</Site>

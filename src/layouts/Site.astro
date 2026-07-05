@@ -1,0 +1,188 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "@fontsource/sora/700.css";
+import "@fontsource/sora/800.css";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/manrope/700.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/600.css";
+import "../styles/site.css";
+
+interface Props {
+  title: string;
+  description: string;
+  active: string;
+}
+const { title, description, active } = Astro.props;
+
+const links = [
+  { href: "/", label: "Home", key: "home" },
+  { href: "/projects", label: "Projects", key: "projects" },
+  { href: "/experience", label: "Experience", key: "experience" },
+  { href: "/about", label: "About", key: "about" },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <ClientRouter />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="logo" href="/">abdulaleem<b>.</b></a>
+        <div class="nav-links">
+          {links.map((l) => (
+            <a href={l.href} aria-current={l.key === active ? "page" : undefined}>{l.label}</a>
+          ))}
+        </div>
+        <button class="kbd-hint" data-open-palette title="Command palette">⌘K</button>
+      </div>
+    </nav>
+
+    <slot />
+
+    <footer class="site">
+      <div class="foot-inner">
+        <span>© 2026 Abdulaleem Altarsha · built with Astro, no template</span>
+        <div class="foot-links">
+          <a href="https://github.com/alim596">GitHub</a>
+          <a href="https://www.linkedin.com/in/abdulaleem-altarsha-159469242/">LinkedIn</a>
+          <a href="mailto:abdulaleemtarshah@gmail.com">Email</a>
+          <a href="/Abdulaleem_Altarsha_CV.pdf">CV (PDF)</a>
+          <a href="/datasheet" title="the unconventional version">datasheet ↗</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- command palette -->
+    <div class="palette-overlay" id="palette-overlay">
+      <div class="palette" role="dialog" aria-label="Command palette">
+        <input id="palette-input" type="text" placeholder="Type a command or search…" autocomplete="off" />
+        <div class="palette-list" id="palette-list">
+          <div class="palette-item" data-action="nav" data-target="/">Go to Home<span class="tag">page</span></div>
+          <div class="palette-item" data-action="nav" data-target="/projects">Go to Projects<span class="tag">page</span></div>
+          <div class="palette-item" data-action="nav" data-target="/experience">Go to Experience<span class="tag">page</span></div>
+          <div class="palette-item" data-action="nav" data-target="/about">Go to About<span class="tag">page</span></div>
+          <div class="palette-item" data-action="nav" data-target="/projects#meridian">Meridian — exchange &amp; matching engine<span class="tag">project</span></div>
+          <div class="palette-item" data-action="nav" data-target="/projects#quorum">Quorum — Raft consensus chaos lab<span class="tag">project</span></div>
+          <div class="palette-item" data-action="nav" data-target="/projects#argus">Argus — observability platform<span class="tag">project</span></div>
+          <div class="palette-item" data-action="nav" data-target="/projects#accentra">Accentra — AI language learning<span class="tag">project</span></div>
+          <div class="palette-item" data-action="ext" data-target="https://github.com/alim596">Open GitHub profile<span class="tag">↗</span></div>
+          <div class="palette-item" data-action="ext" data-target="https://www.linkedin.com/in/abdulaleem-altarsha-159469242/">Open LinkedIn<span class="tag">↗</span></div>
+          <div class="palette-item" data-action="copy" data-target="abdulaleemtarshah@gmail.com">Copy email address<span class="tag">copy</span></div>
+          <div class="palette-item" data-action="nav" data-target="/Abdulaleem_Altarsha_CV.pdf">Download CV<span class="tag">pdf</span></div>
+          <div class="palette-item" data-action="nav" data-target="/datasheet">Easter egg: the datasheet version<span class="tag">fun</span></div>
+        </div>
+        <div class="palette-empty" id="palette-empty">Nothing matches.</div>
+      </div>
+    </div>
+
+    <script>
+      // All handlers are delegated to document with live DOM lookups, so
+      // they survive the View Transitions router swapping the page body.
+      let sel = 0;
+
+      const overlay = () => document.getElementById("palette-overlay");
+      const items = () => [...document.querySelectorAll<HTMLElement>(".palette-item")];
+      const visible = () => items().filter((i) => !i.classList.contains("hidden"));
+
+      function paint() {
+        const vis = visible();
+        const empty = document.getElementById("palette-empty");
+        items().forEach((i) => i.classList.remove("sel"));
+        if (empty) empty.style.display = vis.length ? "none" : "block";
+        if (!vis.length) return;
+        sel = Math.min(sel, vis.length - 1);
+        vis[sel].classList.add("sel");
+        vis[sel].scrollIntoView({ block: "nearest" });
+      }
+
+      function openPalette() {
+        const ov = overlay();
+        const input = document.getElementById("palette-input") as HTMLInputElement | null;
+        if (!ov || !input) return;
+        ov.classList.add("open");
+        input.value = "";
+        items().forEach((i) => i.classList.remove("hidden"));
+        sel = 0;
+        paint();
+        setTimeout(() => input.focus(), 30);
+      }
+
+      const closePalette = () => overlay()?.classList.remove("open");
+
+      function run(item: HTMLElement) {
+        const t = item.dataset.target ?? "";
+        switch (item.dataset.action) {
+          case "nav":
+            closePalette();
+            location.href = t;
+            break;
+          case "ext":
+            closePalette();
+            window.open(t, "_blank", "noopener");
+            break;
+          case "copy": {
+            void navigator.clipboard.writeText(t);
+            const tag = item.querySelector(".tag");
+            if (tag) tag.textContent = "copied ✓";
+            setTimeout(closePalette, 650);
+            break;
+          }
+        }
+      }
+
+      document.addEventListener("click", (e) => {
+        const el = e.target as HTMLElement;
+        if (el.closest("[data-open-palette]")) openPalette();
+        const item = el.closest<HTMLElement>(".palette-item");
+        if (item) run(item);
+      });
+      document.addEventListener("mousedown", (e) => {
+        if (e.target === overlay()) closePalette();
+      });
+      document.addEventListener("input", (e) => {
+        const input = e.target as HTMLInputElement;
+        if (input.id !== "palette-input") return;
+        const q = input.value.toLowerCase();
+        items().forEach((i) => i.classList.toggle("hidden", !(i.textContent ?? "").toLowerCase().includes(q)));
+        sel = 0;
+        paint();
+      });
+      document.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          overlay()?.classList.contains("open") ? closePalette() : openPalette();
+          return;
+        }
+        if (!overlay()?.classList.contains("open")) return;
+        const vis = visible();
+        if (e.key === "Escape") closePalette();
+        if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sel + 1, vis.length - 1); paint(); }
+        if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); paint(); }
+        if (e.key === "Enter" && vis[sel]) run(vis[sel]);
+      });
+
+      // scroll reveals — re-observed after every router swap. The html.js
+      // gate means content stays fully visible when JS never runs.
+      document.documentElement.classList.add("js");
+      function initReveals() {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((en) => en.isIntersecting && en.target.classList.add("in")),
+          { threshold: 0.05, rootMargin: "0px 0px -30px 0px" },
+        );
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      }
+      initReveals();
+      document.addEventListener("astro:page-load", initReveals);
+    </script>
+  </body>
+</html>
