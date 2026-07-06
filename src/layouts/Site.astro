@@ -62,6 +62,8 @@ const links = [
       </div>
     </footer>
 
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <!-- command palette -->
     <div class="palette-overlay" id="palette-overlay">
       <div class="palette" role="dialog" aria-label="Command palette">
@@ -132,12 +134,51 @@ const links = [
             window.open(t, "_blank", "noopener");
             break;
           case "copy": {
-            void navigator.clipboard.writeText(t);
             const tag = item.querySelector(".tag");
-            if (tag) tag.textContent = "copied ✓";
+            copyText(t).then((ok) => {
+              if (tag) tag.textContent = ok ? "copied ✓" : t;
+            });
             setTimeout(closePalette, 650);
             break;
           }
+        }
+      }
+
+      // Toast helper (used by the mailto fallback below).
+      let toastTimer: number | undefined;
+      function showToast(msg: string) {
+        const t = document.getElementById("toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => t.classList.remove("show"), 3200);
+      }
+
+      // Copy with graceful degradation: async Clipboard API first, then a
+      // legacy execCommand fallback. Always resolves (never throws) so the
+      // caller can always show feedback.
+      async function copyText(text: string): Promise<boolean> {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch {
+          /* fall through to legacy path */
+        }
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.cssText = "position:fixed;top:-9999px;opacity:0";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          const ok = document.execCommand("copy");
+          ta.remove();
+          return ok;
+        } catch {
+          return false;
         }
       }
 
@@ -146,6 +187,21 @@ const links = [
         if (el.closest("[data-open-palette]")) openPalette();
         const item = el.closest<HTMLElement>(".palette-item");
         if (item) run(item);
+
+        // mailto: links only open a configured mail app; visitors on webmail
+        // get nothing. So on any email link, also copy the address (with a
+        // manual-read fallback) and always confirm with a toast — the button
+        // now does something useful no matter the setup. No preventDefault:
+        // a real mail client still opens for those who have one.
+        const mail = el.closest<HTMLAnchorElement>('a[href^="mailto:"]');
+        if (mail) {
+          const addr = (mail.getAttribute("href") || "").replace(/^mailto:/, "").split("?")[0];
+          if (addr) {
+            copyText(addr).then((ok) =>
+              showToast(ok ? "Email copied to clipboard — " + addr : "My email: " + addr),
+            );
+          }
+        }
       });
       document.addEventListener("mousedown", (e) => {
         if (e.target === overlay()) closePalette();
