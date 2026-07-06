@@ -58,6 +58,45 @@ const projects = [
     repo: null,
   },
 ];
+
+// Earlier / coursework projects — shown compactly at the bottom.
+const earlier = [
+  {
+    name: "Hotel Management System",
+    blurb: "A full-stack hotel booking and management platform with guest, manager, and admin roles — search and booking, room inventory and pricing, reviews, secure payments, and analytics dashboards.",
+    stack: ["React", "Node.js", "PostgreSQL", "TypeScript"],
+    repo: "https://github.com/alim596/hotel-management-system",
+    demo: null,
+  },
+  {
+    name: "GuideX",
+    blurb: "A campus-visit management app for Bilkent University: schools and students book guided-tour appointments in a calendar while staff manage scheduling and capture structured outreach data. Role-based auth for visitors and staff.",
+    stack: ["TypeScript", "React", "Node.js"],
+    repo: "https://github.com/alim596/guidex-manager",
+    demo: { label: "Demo video", href: "https://www.youtube.com/watch?v=Rmc_ZfOmCXA" },
+  },
+  {
+    name: "Estimation Tool",
+    blurb: "A project-cost estimator: answer a short questionnaire and it computes designer/developer hours and a budget from an hourly rate, persisting each submission. NestJS API + Next.js front-end.",
+    stack: ["NestJS", "Next.js", "SQLite", "TypeScript"],
+    repo: "https://github.com/alim596/estimation-tool",
+    demo: { label: "Live", href: "https://estimation-tool-ten.vercel.app" },
+  },
+  {
+    name: "AI ChatBot",
+    blurb: "A React chat app over the OpenAI API with a chain-of-thought “thought graph” that visualizes the model's reasoning, a typing animation, and a mock observability mode that surfaces anomaly insights on command.",
+    stack: ["React", "JavaScript", "OpenAI API"],
+    repo: "https://github.com/alim596/AI-ChatBot",
+    demo: { label: "Live", href: "https://ai-chat-bot-orpin.vercel.app" },
+  },
+  {
+    name: "Zone",
+    blurb: "An Android social app for university students to find and organize activity-based meetups, with .edu email verification, profiles, ratings, and reporting for a safer campus community. Built as a CS102 project.",
+    stack: ["Java", "Android"],
+    repo: "https://github.com/alim596/102-Project-Zone",
+    demo: null,
+  },
+];
 ---
 
 <Site
@@ -107,4 +146,29 @@ const projects = [
       </article>
     ))}
   </div>
+
+  <section class="band alt">
+    <div class="wrap">
+      <div class="band-head reveal">
+        <span class="kicker">Earlier work</span>
+        <h2>Coursework &amp; smaller builds</h2>
+        <p>Full-stack apps from university and earlier — less ambitious than the systems above, but shipped end to end.</p>
+      </div>
+      <div class="mini-grid">
+        {earlier.map((p) => (
+          <article class="mini-card reveal">
+            <div class="mini-title">{p.name}</div>
+            <p>{p.blurb}</p>
+            <div class="stack-row">
+              {p.stack.map((s) => <span class="chip">{s}</span>)}
+            </div>
+            <div class="mini-links">
+              <a href={p.repo}>GitHub ↗</a>
+              {p.demo && <a href={p.demo.href}>{p.demo.label} ↗</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 </Site>

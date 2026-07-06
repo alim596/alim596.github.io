@@ -281,6 +281,28 @@ html.js .reveal.in { opacity: 1; transform: none; }
   opacity: 0.9;
 }
 
+/* ---------------- earlier projects (compact grid) ---------------- */
+
+.mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .mini-grid { grid-template-columns: 1fr; } }
+
+.mini-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms;
+}
+.mini-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px -18px rgba(22, 21, 15, 0.22); border-color: var(--line-2); }
+.mini-card .mini-title { font-family: var(--display); font-weight: 700; font-size: 18px; }
+.mini-card p { color: var(--ink-2); font-size: 14px; margin: 8px 0 14px; flex: 1; }
+.mini-card .stack-row { margin-bottom: 14px; }
+.mini-links { display: flex; gap: 16px; font-weight: 700; font-size: 13.5px; }
+.mini-links a { color: var(--accent); text-decoration: none; }
+.mini-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---------------- experience page ---------------- */
 
 .timeline { position: relative; padding-left: 42px; }
