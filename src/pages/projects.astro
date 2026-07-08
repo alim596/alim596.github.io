@@ -47,6 +47,27 @@ const projects = [
     repo: "https://github.com/alim596/argus",
   },
   {
+    id: "vigil",
+    kicker: "Developer tools · CLI",
+    name: "Vigil",
+    img: null,
+    term: [
+      "$ vigil run \"migrate the test suite and make it pass\"",
+      "[vigil] session 89fc0bcb-b7b0-437d-8ae4-c932e1bcda11",
+      "  · Bash",
+      "  · Edit",
+      "[vigil] usage limit hit (reset parsed from message)",
+      "[vigil] waiting 2h14m09s — resuming at Tue 04:00:00",
+      "[vigil] resuming session 89fc0bcb…",
+      "[vigil] task complete after 2 cycle(s).",
+    ],
+    alt: "",
+    desc: "Keeps watch over long Claude Code tasks. When a run dies on a usage limit, Vigil parses the reset time out of the error message, waits it out with a live countdown, and resumes the exact same session until the task is done — the 4am alarm clock, automated. Limits are never bypassed; it just does the waiting and retyping.",
+    metrics: ["layered parser over 4 limit-message formats", "session-id capture → exact resume", "integration-tested via a fake-claude stub", "non-limit failures stop the loop"],
+    stack: ["Go", "CLI", "process orchestration"],
+    repo: "https://github.com/alim596/vigil",
+  },
+  {
     id: "accentra",
     kicker: "AI · Senior capstone (team of 5)",
     name: "Accentra",
@@ -110,7 +131,7 @@ const earlier = [
         <span class="kicker">Projects</span>
         <h2>Built from scratch, measured, shipped</h2>
         <p>
-          Four personal systems and a university capstone. They share a rule: no framework
+          Five personal projects and a university capstone. They share a rule: no framework
           where the interesting part should be — matching engines, consensus, storage
           engines, and visualizations are hand-built, tested, and benchmarked.
         </p>
@@ -125,8 +146,13 @@ const earlier = [
           <a class="media" href={p.repo ?? "#"} aria-label={`${p.name} repository`}>
             <img src={p.img} alt={p.alt} loading={i === 0 ? "eager" : "lazy"} />
           </a>
+        ) : p.term ? (
+          <a class="media term-mock" href={p.repo ?? "#"} aria-label={`${p.name} repository`}>
+            <div class="term-bar"><span></span><span></span><span></span></div>
+            <pre>{p.term.join("\n")}</pre>
+          </a>
         ) : (
-          <div class="media-alt"><span>accentra</span></div>
+          <div class="media-alt"><span>{p.name.toLowerCase()}</span></div>
         )}
         <div>
           <span class="kicker">{p.kicker}</span>

@@ -281,6 +281,24 @@ html.js .reveal.in { opacity: 1; transform: none; }
   opacity: 0.9;
 }
 
+/* terminal mock for CLI projects */
+.term-mock {
+  display: block;
+  background: #17150f;
+  text-decoration: none;
+}
+.term-bar { display: flex; gap: 7px; padding: 12px 14px 4px; }
+.term-bar span { width: 11px; height: 11px; border-radius: 50%; background: #3b382d; }
+.term-mock pre {
+  margin: 0;
+  padding: 14px 20px 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.75;
+  color: #cfc6ad;
+  overflow-x: auto;
+}
+
 /* ---------------- earlier projects (compact grid) ---------------- */
 
 .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
