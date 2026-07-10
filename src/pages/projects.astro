@@ -12,6 +12,7 @@ const projects = [
     metrics: ["50k operation replay at 428k ops/s", "25 seeded fuzz schedules in CI", "vector-clock diff sync", "browser lab verified with offline replay"],
     stack: ["TypeScript", "React", "WebSocket", "CRDTs", "Vitest"],
     repo: "https://github.com/alim596/lattice",
+    live: "https://alim596.github.io/lattice/",
   },
   {
     id: "strata",
@@ -177,6 +178,7 @@ const earlier = [
           </div>
           <div class="plinks">
             {p.repo && <a href={p.repo}>View on GitHub ↗</a>}
+            {p.live && <a href={p.live}>Open live lab ↗</a>}
             {!p.repo && <span style="color: var(--ink-3); font-weight: 500;">University project — code on request</span>}
           </div>
         </div>
