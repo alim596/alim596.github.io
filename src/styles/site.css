@@ -187,7 +187,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
 
 /* ---------------- featured cards (home) ---------------- */
 
-.feat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.feat-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
 @media (max-width: 900px) { .feat-cards { grid-template-columns: 1fr; } }
 
 .fcard {

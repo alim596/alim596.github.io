@@ -3,6 +3,14 @@ import Site from "../layouts/Site.astro";
 
 const featured = [
   {
+    href: "/projects#projectforge",
+    img: "/img/projectforge.png",
+    alt: "ProjectForge project-management board",
+    name: "ProjectForge",
+    tag: "REACT · FASTAPI",
+    blurb: "Turn research and rough ideas into grounded, cost-aware software plans, then manage the work and generate the project with your own AI provider.",
+  },
+  {
     href: "/projects#strata",
     img: "/img/strata.png",
     alt: "Strata: repository history as an animated heat-mapped treemap",
@@ -65,7 +73,7 @@ const featured = [
       <div class="band-head reveal">
         <span class="kicker">Selected work</span>
         <h2>A few things I've built</h2>
-        <p>Each one links to a repo — green CI, real benchmarks, and an honest limitations section.</p>
+        <p>Current systems work, with green CI, real measurements, and honest limitations.</p>
       </div>
       <div class="feat-cards">
         {featured.map((f, i) => (
