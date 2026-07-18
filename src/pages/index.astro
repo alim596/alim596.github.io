@@ -3,6 +3,14 @@ import Site from "../layouts/Site.astro";
 
 const featured = [
   {
+    href: "https://accentra-webpage.netlify.app/",
+    img: null,
+    alt: "",
+    name: "Accentra",
+    tag: "NEXT.JS · FASTAPI",
+    blurb: "AI language learning with CEFR-aligned exams, phoneme-level pronunciation feedback, and a project page with the beta walkthrough and video material.",
+  },
+  {
     href: "/projects#projectforge",
     img: "/img/projectforge.png",
     alt: "ProjectForge project-management board",
@@ -78,7 +86,13 @@ const featured = [
       <div class="feat-cards">
         {featured.map((f, i) => (
           <a class={`fcard reveal`} style={`transition-delay:${i * 90}ms`} href={f.href}>
-            <div class="thumb"><img src={f.img} alt={f.alt} loading={i === 0 ? "eager" : "lazy"} /></div>
+            <div class={`thumb ${f.img ? "" : "placeholder"}`}>
+              {f.img ? (
+                <img src={f.img} alt={f.alt} loading={i === 0 ? "eager" : "lazy"} />
+              ) : (
+                <span>{f.name.toLowerCase()}</span>
+              )}
+            </div>
             <div class="fcard-body">
               <div class="name">{f.name}<span class="mono">{f.tag}</span></div>
               <p>{f.blurb}</p>

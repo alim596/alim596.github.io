@@ -284,6 +284,20 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .fcard .thumb { aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--line); }
 .fcard .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 500ms ease; }
 .fcard:hover .thumb img { transform: scale(1.045); }
+.fcard .thumb.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(520px 240px at 18% 0%, var(--accent-soft), transparent 70%),
+    var(--card);
+}
+.fcard .thumb.placeholder span {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--accent);
+}
 .fcard-body { padding: 20px 22px 24px; }
 .fcard-body .name { font-family: var(--display); font-weight: 700; font-size: 19px; display: flex; align-items: baseline; gap: 10px; }
 .fcard-body .name .mono { font-size: 11px; color: var(--accent); }
