@@ -89,7 +89,13 @@ const projects = [
     metrics: ["CEFR-aligned exam engine", "phoneme-level pronunciation scoring", "multi-agent generation pipelines"],
     stack: ["Next.js", "FastAPI", "PostgreSQL", "LangGraph", "wav2vec2", "Docker"],
     repo: null,
+    projectUrl: "https://accentra-webpage.netlify.app/",
   },
+];
+
+const orderedProjects = [
+  ...projects.filter((p) => p.id === "accentra"),
+  ...projects.filter((p) => p.id !== "accentra"),
 ];
 
 // Earlier / coursework projects — shown compactly at the bottom.
@@ -152,7 +158,7 @@ const earlier = [
   </section>
 
   <div class="wrap">
-    {projects.map((p, i) => (
+    {orderedProjects.map((p, i) => (
       <article class={`project reveal ${i % 2 === 1 ? "flip" : ""}`} id={p.id}>
         {p.img && p.repo ? (
           <a class="media" href={p.repo} aria-label={`${p.name} repository`}>
@@ -166,6 +172,10 @@ const earlier = [
           <a class="media term-mock" href={p.repo ?? "#"} aria-label={`${p.name} repository`}>
             <div class="term-bar"><span></span><span></span><span></span></div>
             <pre>{p.term.join("\n")}</pre>
+          </a>
+        ) : p.projectUrl ? (
+          <a class="media-alt" href={p.projectUrl} aria-label={`${p.name} project`}>
+            <span>{p.name.toLowerCase()}</span>
           </a>
         ) : (
           <div class="media-alt"><span>{p.name.toLowerCase()}</span></div>
@@ -181,9 +191,10 @@ const earlier = [
             {p.stack.map((s) => <span class="chip">{s}</span>)}
           </div>
           <div class="plinks">
+            {p.projectUrl && <a href={p.projectUrl}>View project ↗</a>}
             {p.repo && <a href={p.repo}>View on GitHub ↗</a>}
             {p.live && <a href={p.live}>Open live lab ↗</a>}
-            {!p.repo && <span style="color: var(--ink-3); font-weight: 500;">{p.note ?? "University project · Code on request"}</span>}
+            {!p.repo && !p.projectUrl && <span style="color: var(--ink-3); font-weight: 500;">{p.note ?? "University project · Code on request"}</span>}
           </div>
         </div>
       </article>

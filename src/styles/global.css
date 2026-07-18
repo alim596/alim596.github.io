@@ -37,6 +37,7 @@ body {
   font-family: var(--sans);
   font-size: 15px;
   line-height: 1.55;
+  overflow-x: hidden;
 }
 
 .sheet {
@@ -50,7 +51,11 @@ body {
 }
 
 @media (max-width: 760px) {
-  .sheet { padding: 0 20px 60px; }
+  .sheet {
+    padding: 0 18px 60px;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 a { color: inherit; text-decoration-color: var(--ink-3); text-underline-offset: 3px; }
@@ -131,6 +136,36 @@ h2 {
 }
 .sec-note { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); }
 
+@media (max-width: 640px) {
+  .titleblock { padding: 28px 0 22px; }
+  .part-number {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+  }
+  .subtitle {
+    font-size: 16px;
+  }
+  .status-row {
+    gap: 8px;
+  }
+  .badge {
+    max-width: 100%;
+    white-space: normal;
+  }
+  section {
+    padding-top: 32px;
+  }
+  .sec-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 10px;
+  }
+  .sec-note {
+    grid-column: 2;
+    margin-left: 0;
+  }
+}
+
 h3 { font-size: 15.5px; margin: 22px 0 6px; }
 
 .footnote {
@@ -180,10 +215,39 @@ table.spec td.c, table.spec th.c { text-align: center; }
 table.spec tr.hl td { background: var(--signal-soft); }
 table.spec .param { font-weight: 600; }
 
+@media (max-width: 640px) {
+  table.spec {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.spec th,
+  table.spec td {
+    min-width: 96px;
+    padding: 7px 8px;
+  }
+  table.spec th:first-child,
+  table.spec td:first-child {
+    min-width: 150px;
+  }
+}
+
 /* ---------------- pins ---------------- */
 
 .pin-wrap { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
 @media (max-width: 860px) { .pin-wrap { grid-template-columns: 1fr; } }
+
+@media (max-width: 640px) {
+  .pin-wrap {
+    gap: 22px;
+  }
+  .pin-wrap svg {
+    width: min(330px, 100%);
+    height: auto;
+    justify-self: center;
+  }
+}
 
 .pin-desc td:first-child { font-family: var(--mono); font-size: 12px; white-space: nowrap; }
 
@@ -214,6 +278,18 @@ tr.pinrow.active td { background: var(--signal-soft); }
 .xp li { margin-bottom: 7px; }
 .xp li::marker { color: var(--ink-3); }
 .xp li strong { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .xp {
+    padding: 18px 0;
+  }
+  .xp h3 {
+    font-size: 15px;
+  }
+  .xp ul {
+    padding-left: 16px;
+  }
+}
 
 /* ---------------- reference designs (projects) ---------------- */
 
@@ -262,6 +338,21 @@ tr.pinrow.active td { background: var(--signal-soft); }
 .design .links a { color: var(--signal); text-decoration: none; font-weight: 600; }
 .design .links a:hover { text-decoration: underline; }
 
+@media (max-width: 640px) {
+  .design-body {
+    padding: 13px 14px 15px;
+  }
+  .design-title {
+    flex-wrap: wrap;
+    gap: 4px 9px;
+  }
+  .design .shot-placeholder {
+    font-size: 9px;
+    text-align: center;
+    padding: 0 12px;
+  }
+}
+
 /* ---------------- ratings / contact ---------------- */
 
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
@@ -302,6 +393,21 @@ tr.pinrow.active td { background: var(--signal-soft); }
 .cta:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
 .cta.ghost { background: transparent; color: var(--ink); margin-left: 10px; }
 .cta.ghost:hover { color: var(--signal); border-color: var(--signal); background: transparent; }
+
+@media (max-width: 640px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .cta,
+  .cta.ghost {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+  .cta.ghost {
+    margin-top: 10px;
+  }
+}
 
 /* ---------------- footer ---------------- */
 
