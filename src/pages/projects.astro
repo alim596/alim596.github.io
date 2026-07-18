@@ -83,8 +83,8 @@ const projects = [
     id: "accentra",
     kicker: "AI · Senior capstone (team of 5)",
     name: "Accentra",
-    img: null,
-    alt: "",
+    img: "/img/accentra.png",
+    alt: "Accentra landing page with beta call to action",
     desc: "An AI-powered language-learning platform delivering CEFR-aligned exams with phoneme-level pronunciation feedback (wav2vec2 + CTC + GOP scoring) and multi-agent LangGraph pipelines for exam generation. I led infrastructure — Docker, GitHub Actions CI, Git workflow — plus the API client layer and the entire Instructor Mode.",
     metrics: ["CEFR-aligned exam engine", "phoneme-level pronunciation scoring", "multi-agent generation pipelines"],
     stack: ["Next.js", "FastAPI", "PostgreSQL", "LangGraph", "wav2vec2", "Docker"],
@@ -160,8 +160,8 @@ const earlier = [
   <div class="wrap">
     {orderedProjects.map((p, i) => (
       <article class={`project reveal ${i % 2 === 1 ? "flip" : ""}`} id={p.id}>
-        {p.img && p.repo ? (
-          <a class="media" href={p.repo} aria-label={`${p.name} repository`}>
+        {p.img && (p.repo || p.projectUrl) ? (
+          <a class="media" href={p.repo ?? p.projectUrl} aria-label={`${p.name} ${p.repo ? "repository" : "project"}`}>
             <img src={p.img} alt={p.alt} loading={i === 0 ? "eager" : "lazy"} />
           </a>
         ) : p.img ? (
