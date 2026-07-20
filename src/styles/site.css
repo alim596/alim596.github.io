@@ -28,6 +28,31 @@
 
 html { scroll-behavior: smooth; }
 
+html,
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #cfcac0 var(--paper);
+}
+
+*::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cfcac0;
+  border: 4px solid var(--paper);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #b8b2a6;
+}
+
 body {
   margin: 0;
   background: var(--paper);
