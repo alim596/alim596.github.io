@@ -12,6 +12,7 @@ const projects = [
     metrics: ["5 providers behind one operation contract", "70 backend + 12 frontend tests", "39 API operations contract-checked", "non-destructive project restore"],
     stack: ["React", "TypeScript", "FastAPI", "SQLAlchemy", "SQLite"],
     repo: null,
+    demo: { label: "Demo video", href: "https://www.youtube.com/watch?v=QsSWEfcOrp8" },
     note: "Private repository · Active development",
   },
   {
@@ -193,6 +194,7 @@ const earlier = [
           <div class="plinks">
             {p.projectUrl && <a href={p.projectUrl}>View project ↗</a>}
             {p.repo && <a href={p.repo}>View on GitHub ↗</a>}
+            {p.demo && <a href={p.demo.href}>{p.demo.label} ↗</a>}
             {p.live && <a href={p.live}>Open live lab ↗</a>}
             {!p.repo && !p.projectUrl && <span style="color: var(--ink-3); font-weight: 500;">{p.note ?? "University project · Code on request"}</span>}
           </div>
