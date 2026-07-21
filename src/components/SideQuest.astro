@@ -11,6 +11,11 @@
     <span class="sr-only">Open side quest</span>
   </button>
 
+  <span class="quest-peek" aria-hidden="true">
+    <i class="peek-card peek-back"></i>
+    <i class="peek-card peek-front"></i>
+  </span>
+
   <div class="quest-panel" id="side-quest-panel" aria-hidden="true">
     <header class="quest-head">
       <div>
@@ -346,6 +351,7 @@
     cursor: pointer;
     backdrop-filter: blur(8px);
     transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+    z-index: 2;
   }
 
   .quest-tab:hover,
@@ -354,6 +360,70 @@
     background: var(--card);
     border-color: var(--accent);
   }
+
+  .quest-peek {
+    position: absolute;
+    top: 50%;
+    left: -42px;
+    width: 42px;
+    height: 68px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: opacity 180ms ease;
+    z-index: 1;
+  }
+
+  .is-open .quest-peek { opacity: 0; }
+
+  .peek-card {
+    --peek-rest-x: 4px;
+    --peek-rest-y: 0px;
+    --peek-x: -17px;
+    --peek-y: 0px;
+    --peek-return-x: -3px;
+    --peek-return-y: 0px;
+    --peek-rotation: -10deg;
+    position: absolute;
+    display: block;
+    left: 7px;
+    width: 17px;
+    height: 23px;
+    color: var(--accent);
+    background: #fffefa;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    box-shadow: 0 3px 7px -5px rgba(22, 21, 15, 0.55);
+    opacity: 0;
+    transform-origin: right center;
+    animation: card-peek 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  .peek-card::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 3px;
+    height: 3px;
+    background: currentColor;
+    transform: rotate(45deg);
+  }
+
+  .peek-back {
+    top: 11px;
+    color: var(--accent);
+  }
+
+  .peek-front {
+    --peek-x: -20px;
+    --peek-rotation: 11deg;
+    bottom: 10px;
+    color: #df4f60;
+    animation-delay: -0.16s;
+  }
+
+  .quest-tab:hover + .quest-peek .peek-card,
+  .quest-tab:focus-visible + .quest-peek .peek-card { animation-duration: 3.4s; }
 
   .quest-chevron {
     width: 9px;
@@ -617,6 +687,22 @@
     to { opacity: 1; transform: none; }
   }
 
+  @keyframes card-peek {
+    0%, 48%, 100% {
+      opacity: 0;
+      transform: translate(var(--peek-rest-x), var(--peek-rest-y)) rotate(0deg) scale(0.92);
+    }
+    55% { opacity: 0.72; }
+    67%, 78% {
+      opacity: 0.92;
+      transform: translate(var(--peek-x), var(--peek-y)) rotate(var(--peek-rotation)) scale(1);
+    }
+    88% {
+      opacity: 0.35;
+      transform: translate(var(--peek-return-x), var(--peek-return-y)) rotate(2deg) scale(0.96);
+    }
+  }
+
   @media (max-width: 560px) {
     .side-quest {
       top: auto;
@@ -642,6 +728,38 @@
     .quest-chevron { transform: rotate(135deg); }
     .is-open .quest-chevron { transform: rotate(315deg); }
 
+    .quest-peek {
+      top: -42px;
+      left: auto;
+      right: 16px;
+      width: 64px;
+      height: 42px;
+      transform: none;
+    }
+
+    .peek-card {
+      --peek-rest-x: 0px;
+      --peek-rest-y: 4px;
+      --peek-x: 0px;
+      --peek-y: -21px;
+      --peek-return-x: 0px;
+      --peek-return-y: -3px;
+      --peek-rotation: -10deg;
+      top: 9px;
+      left: 18px;
+      transform-origin: center bottom;
+    }
+
+    .peek-front {
+      --peek-x: 0px;
+      --peek-y: -24px;
+      --peek-rotation: 11deg;
+      top: 9px;
+      right: 16px;
+      bottom: auto;
+      left: auto;
+    }
+
     .quest-panel {
       min-height: 0;
       max-height: calc(100dvh - 80px);
@@ -665,6 +783,11 @@
     .side-quest,
     .quest-chevron { transition: none; }
     .playing-card.is-dealing,
-    .reward-mark { animation: none; }
+    .reward-mark,
+    .peek-card {
+      animation: none;
+      opacity: 0.72;
+      transform: translate(var(--peek-x), var(--peek-y)) rotate(var(--peek-rotation)) scale(0.92);
+    }
   }
 </style>
