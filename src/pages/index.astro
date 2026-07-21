@@ -85,12 +85,17 @@ const featured = [
 
   <script>
     // Hero: a quiet field of ink dots that leans away from the cursor.
+    let cleanupDots: (() => void) | undefined;
+
     function initDots() {
+      cleanupDots?.();
+
       const canvas = document.getElementById("dots") as HTMLCanvasElement | null;
       if (!canvas || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const ctx = canvas.getContext("2d")!;
       let w = 0, h = 0, raf = 0;
       const GAP = 34;
+      const interactive = matchMedia("(hover: hover) and (pointer: fine)").matches;
       let dots: { x: number; y: number; ox: number; oy: number }[] = [];
       const mouse = { x: -9999, y: -9999 };
 
@@ -106,7 +111,7 @@ const featured = [
         }
       };
 
-      const step = () => {
+      const draw = () => {
         ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
         ctx.clearRect(0, 0, w, h);
         for (const d of dots) {
@@ -123,6 +128,11 @@ const featured = [
           ctx.fillStyle = push > 0.02 ? "rgba(25,72,209,0.55)" : "rgba(22,21,15,0.14)";
           ctx.fill();
         }
+      };
+
+      const step = () => {
+        if (!canvas.isConnected) return;
+        draw();
         raf = requestAnimationFrame(step);
       };
 
@@ -133,14 +143,32 @@ const featured = [
       };
       const onLeave = () => { mouse.x = -9999; mouse.y = -9999; };
 
+      const hero = canvas.parentElement!;
+      const onResize = () => {
+        build();
+        if (!interactive) draw();
+      };
+
       build();
-      addEventListener("resize", build);
-      canvas.parentElement!.addEventListener("mousemove", onMove);
-      canvas.parentElement!.addEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
-      step();
+      addEventListener("resize", onResize);
+      if (interactive) {
+        hero.addEventListener("mousemove", onMove);
+        hero.addEventListener("mouseleave", onLeave);
+        step();
+      } else {
+        draw();
+      }
+
+      cleanupDots = () => {
+        cancelAnimationFrame(raf);
+        removeEventListener("resize", onResize);
+        hero.removeEventListener("mousemove", onMove);
+        hero.removeEventListener("mouseleave", onLeave);
+        cleanupDots = undefined;
+      };
     }
     initDots();
     document.addEventListener("astro:page-load", initDots);
+    document.addEventListener("astro:before-swap", () => cleanupDots?.());
   </script>
 </Site>
