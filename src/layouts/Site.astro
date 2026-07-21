@@ -23,27 +23,6 @@ const links = [
   { href: "/experience", label: "Experience", key: "experience" },
   { href: "/about", label: "About", key: "about" },
 ];
-
-const pageTransition = {
-  forwards: {
-    old: { name: "route-out", duration: "90ms", easing: "ease-out", fillMode: "both" },
-    new: {
-      name: "route-in",
-      duration: "150ms",
-      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-      fillMode: "both",
-    },
-  },
-  backwards: {
-    old: { name: "route-out", duration: "90ms", easing: "ease-out", fillMode: "both" },
-    new: {
-      name: "route-in",
-      duration: "150ms",
-      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-      fillMode: "both",
-    },
-  },
-};
 ---
 
 <html lang="en">
@@ -59,25 +38,19 @@ const pageTransition = {
     <ClientRouter />
   </head>
   <body>
-    <nav class="nav" transition:persist="site-nav">
+    <nav class="nav">
       <div class="nav-inner">
         <a class="logo" href="/">abdulaleem<b>.</b></a>
         <div class="nav-links">
           {links.map((l) => (
-            <a
-              href={l.href}
-              aria-current={l.key === active ? "page" : undefined}
-              data-astro-prefetch="load"
-            >{l.label}</a>
+            <a href={l.href} aria-current={l.key === active ? "page" : undefined}>{l.label}</a>
           ))}
         </div>
         <button class="kbd-hint" data-open-palette title="Command palette">⌘K</button>
       </div>
     </nav>
 
-    <main class="page-shell" transition:name="page-content" transition:animate={pageTransition}>
-      <slot />
-    </main>
+    <slot />
 
     <footer class="site">
       <div class="foot-inner">
@@ -129,15 +102,6 @@ const pageTransition = {
       const overlay = () => document.getElementById("palette-overlay");
       const items = () => [...document.querySelectorAll<HTMLElement>(".palette-item")];
       const visible = () => items().filter((i) => !i.classList.contains("hidden"));
-
-      function syncNavState() {
-        const currentPath = location.pathname.replace(/\/$/, "") || "/";
-        document.querySelectorAll<HTMLAnchorElement>(".nav-links a").forEach((link) => {
-          const targetPath = new URL(link.href).pathname.replace(/\/$/, "") || "/";
-          if (targetPath === currentPath) link.setAttribute("aria-current", "page");
-          else link.removeAttribute("aria-current");
-        });
-      }
 
       function paint() {
         const vis = visible();
@@ -226,11 +190,6 @@ const pageTransition = {
 
       document.addEventListener("click", (e) => {
         const el = e.target as HTMLElement;
-        const navLink = el.closest<HTMLAnchorElement>(".nav-links a");
-        if (navLink && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-          document.querySelectorAll(".nav-links a").forEach((link) => link.removeAttribute("aria-current"));
-          navLink.setAttribute("aria-current", "page");
-        }
         if (el.closest("[data-open-palette]")) openPalette();
         const item = el.closest<HTMLElement>(".palette-item");
         if (item) run(item);
@@ -286,11 +245,7 @@ const pageTransition = {
         document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
       }
       initReveals();
-      syncNavState();
-      document.addEventListener("astro:page-load", () => {
-        syncNavState();
-        initReveals();
-      });
+      document.addEventListener("astro:page-load", initReveals);
     </script>
   </body>
 </html>
