@@ -29,9 +29,9 @@ const pins = [
 
 const pinDesc: Record<string, { fn: string; desc: string }> = {
   backend: { fn: "Primary supply", desc: "Java · TypeScript/NestJS · Spring Boot · FastAPI — production services, REST/GraphQL, event-driven messaging, JWT/OAuth" },
-  systems: { fn: "High-current output", desc: "Go & C++ — matching engines, Raft consensus, storage engines, lock-free hot paths" },
+  systems: { fn: "High-current output", desc: "C++ & Python — algorithms, data structures, concurrency fundamentals from CE coursework" },
   frontend: { fn: "Display driver", desc: "React · Next.js · Redux · Tailwind — four shipped UIs with four distinct design systems" },
-  data: { fn: "Persistent storage bus", desc: "PostgreSQL · MongoDB · schema design · a hand-built time-series database" },
+  data: { fn: "Persistent storage bus", desc: "PostgreSQL · MongoDB · schema design · migrations on live production data" },
   devops: { fn: "Clock & housekeeping", desc: "Docker · GitHub Actions CI/CD · Postman · Jira — every personal repo ships with green CI" },
   ground: { fn: "Ground", desc: "Connect to strong coffee. Do not float." },
 };
@@ -39,33 +39,6 @@ const pinDesc: Record<string, { fn: string; desc: string }> = {
 const designs = [
   {
     id: "RD-001",
-    name: "Meridian",
-    img: "/img/meridian.png",
-    alt: "Meridian trading terminal: candles, order book ladder, news wire",
-    desc: "A real-time financial exchange: price-time priority matching engine (~2.2M ops/s, 458ns/op), news-driven market simulation, circuit breakers, deployable trading bots, and a Bloomberg-style terminal.",
-    tags: ["Go", "React", "WebSocket", "event sourcing"],
-    repo: "https://github.com/alim596/meridian",
-  },
-  {
-    id: "RD-002",
-    name: "Quorum",
-    img: "/img/quorum.png",
-    alt: "Quorum chaos lab: five-node Raft cluster visualization",
-    desc: "Raft consensus implemented from scratch, verified by a deterministic chaos simulator (40 seeded schedules per CI run asserting the paper's safety invariants), with a browser lab for crashing leaders and partitioning the network live.",
-    tags: ["Go", "distributed systems", "TypeScript", "SVG"],
-    repo: "https://github.com/alim596/quorum",
-  },
-  {
-    id: "RD-003",
-    name: "Argus",
-    img: "/img/argus.png",
-    alt: "Argus observability platform: service tiles and latency charts during an incident",
-    desc: "An observability platform built from the storage engine up: Gorilla-compressed TSDB (1.1 bytes/sample), a PromQL-style query language, real OTLP ingest, traces, logs, and alerting — Grafana can use it as a datasource.",
-    tags: ["Go", "OpenTelemetry", "compression", "React"],
-    repo: "https://github.com/alim596/argus",
-  },
-  {
-    id: "RD-004",
     name: "Accentra",
     img: null,
     alt: "",
@@ -85,7 +58,7 @@ const designs = [
     <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="Datasheet for AA-2026: general-purpose software engineer. Full-stack production experience on distributed insurance platforms; builds exchanges, consensus protocols, and observability platforms for fun."
+      content="Datasheet for AA-2026: general-purpose software engineer. Full-stack production experience on distributed insurance platforms; builds AI-driven product tooling for fun."
     />
     <meta property="og:title" content="Abdulaleem Altarsha — engineer datasheet" />
     <meta property="og:description" content="General-purpose software engineer, in production since 2022. See §6 Reference Designs." />
@@ -103,12 +76,12 @@ const designs = [
         <h1>Abdulaleem Altarsha</h1>
         <p class="subtitle">
           Full-stack engineer shipping production features on distributed insurance platforms by day;
-          builds exchanges, consensus protocols, and observability platforms after hours.
+          builds AI-driven product tooling after hours.
         </p>
         <div class="status-row">
           <span class="badge ok">● In production since 2022</span>
           <span class="badge signal">Available for integration</span>
-          <span class="badge plain">Ankara, Türkiye · Remote-proven (CH)</span>
+          <span class="badge plain">Remote-proven (CH · US client)</span>
         </div>
       </div>
 
@@ -124,7 +97,7 @@ const designs = [
             <li><strong>200+ production tickets</strong> shipped on a multi-state US auto-insurance platform (quoting, underwriting, endorsements, cancellations, billing) under aggressive deadlines</li>
             <li><strong>Architected a custom billing system end-to-end</strong> — NestJS microservices, queue workers, integrations — when the core platform couldn't meet a contractual client requirement</li>
             <li><strong>Debugs across service boundaries</strong>: resolved high-impact incidents in event-driven billing flows by tracing failures through distributed handlers and persisted state; 65+ defects surfaced &amp; triaged independently</li>
-            <li><strong>Systems range</strong>: matching engines, Raft consensus, time-series storage — with measured benchmarks and CI-checked invariants, not just claims</li>
+            <li><strong>Product range</strong>: quoting, underwriting, billing, and policy lifecycle on a live multi-state platform — plus AI pipelines that had to work for real users</li>
             <li>Clear communicator across QA, product, and offshore teams; bridges stakeholders and engineering</li>
           </ul>
           <div>
@@ -202,14 +175,11 @@ const designs = [
           <tbody>
             <tr><td class="param">Production tickets shipped</td><td>Radity · multi-state US insurance platform</td><td class="c mono">—</td><td class="c mono">200</td><td class="c mono">∞</td><td class="c mono">tickets</td></tr>
             <tr><td class="param">Defects surfaced &amp; triaged</td><td>independently, with root-cause analysis</td><td class="c mono">—</td><td class="c mono">65</td><td class="c mono">—</td><td class="c mono">defects</td></tr>
-            <tr class="hl"><td class="param">Order-book throughput</td><td>Meridian matching engine, i7 laptop</td><td class="c mono">—</td><td class="c mono">2.2M</td><td class="c mono">—</td><td class="c mono">ops/s</td></tr>
-            <tr><td class="param">Consensus safety violations</td><td>Quorum · 40 seeded chaos schedules / CI run</td><td class="c mono">0</td><td class="c mono">0</td><td class="c mono">0</td><td class="c mono">count</td></tr>
-            <tr><td class="param">TSDB storage cost</td><td>Argus · Gorilla codec, by value entropy</td><td class="c mono">1.11</td><td class="c mono">2.65</td><td class="c mono">7.77</td><td class="c mono">B/sample</td></tr>
             <tr><td class="param">Human languages</td><td>English, Arabic (native) · Turkish (conv.)</td><td class="c mono">2</td><td class="c mono">—</td><td class="c mono">3</td><td class="c mono">langs</td></tr>
-            <tr><td class="param">Timezone tolerance</td><td>Zürich team, Ankara desk, US client</td><td class="c mono">−8</td><td class="c mono">—</td><td class="c mono">+3</td><td class="c mono">UTC</td></tr>
+            <tr><td class="param">Timezone tolerance</td><td>Zürich team, US client</td><td class="c mono">−8</td><td class="c mono">—</td><td class="c mono">+3</td><td class="c mono">UTC</td></tr>
           </tbody>
         </table>
-        <p class="footnote">All figures measured, not estimated. Benchmarks reproducible from the linked repositories (§6).</p>
+        <p class="footnote">All figures measured, not estimated.</p>
       </section>
 
       <!-- 4. TYPICAL APPLICATIONS -->
@@ -261,7 +231,7 @@ const designs = [
             <div class="co">Bilkent University</div>
             <div>B.Sc. Computer Eng.</div>
             <div>2022 – 2026</div>
-            <div>Ankara, Türkiye</div>
+            <div>Remote · GMT+3</div>
           </div>
           <div>
             <h3>Computer Engineering</h3>
@@ -352,7 +322,7 @@ const designs = [
           </div>
           <div class="order-cell">
             <div class="k">Package</div>
-            <div class="v">Remote / hybrid · based in Ankara, TR</div>
+            <div class="v">Remote / hybrid · relocation considered</div>
           </div>
         </div>
         <a class="cta" href="mailto:abdulaleemtarshah@gmail.com?subject=Integration%20inquiry%20%E2%80%94%20AA-2026">Request evaluation unit →</a>

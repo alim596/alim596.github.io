@@ -16,71 +16,6 @@ const projects = [
     note: "Private repository · Active development",
   },
   {
-    id: "strata",
-    kicker: "Creative engineering · Developer tools",
-    name: "Strata",
-    img: "/img/strata.png",
-    alt: "Strata: Express.js history as a heat-mapped treemap with coupling lines",
-    desc: "Every codebase is a landscape — Strata lets you watch it form. Paste any repository URL and its entire history renders as an animated treemap you scrub through time: files appear, grow, and erode across years. Then the mining layer digs up what teams pay for: hotspots, files that secretly change together, and bus-factor risk.",
-    metrics: ["17y of Express.js ingested in ~10s", "hand-built squarified treemap on canvas", "co-change mining (support/confidence)", "60KB of JavaScript, no chart libraries"],
-    stack: ["Go", "Svelte 5", "TypeScript", "Canvas", "git internals"],
-    repo: "https://github.com/alim596/strata",
-  },
-  {
-    id: "meridian",
-    kicker: "Real-time systems · Fintech",
-    name: "Meridian",
-    img: "/img/meridian.png",
-    alt: "Meridian terminal: live candles, order book ladder, news wire, algo deck",
-    desc: "A self-contained financial exchange. A Go matching engine runs price-time-priority order books; an agent-based simulation with a news engine keeps markets alive (and occasionally halts them with circuit breakers); anyone can deploy momentum, mean-reversion, or market-making bots and watch the leaderboard decide who eats whom.",
-    metrics: ["2.2M ops/s matching", "458 ns/op · 2 allocs", "event-sourced journal + replay", "volatility circuit breakers"],
-    stack: ["Go", "React", "TypeScript", "WebSocket", "Docker"],
-    repo: "https://github.com/alim596/meridian",
-  },
-  {
-    id: "quorum",
-    kicker: "Distributed systems",
-    name: "Quorum",
-    img: "/img/quorum.png",
-    alt: "Quorum chaos lab: five-node Raft cluster with animated messages",
-    desc: "The Raft consensus algorithm implemented from scratch — no libraries — as a pure state machine, driven identically by a live browser chaos lab and a deterministic simulator. Click a node to crash it, partition the network mid-write, and watch a minority-side leader accept a proposal it can never commit.",
-    metrics: ["40 seeded chaos schedules per CI run", "election safety · log matching · leader completeness, machine-checked", "identical seeds ⇒ identical histories"],
-    stack: ["Go", "TypeScript", "SVG", "WebSocket"],
-    repo: "https://github.com/alim596/quorum",
-  },
-  {
-    id: "argus",
-    kicker: "Data infrastructure · Observability",
-    name: "Argus",
-    img: "/img/argus.png",
-    alt: "Argus overview: service health tiles and latency charts during a live incident",
-    desc: "A full observability platform built from the storage engine up: a custom time-series database with Gorilla compression, a PromQL-style query language with a hand-written parser, real OpenTelemetry ingest, distributed traces, live-tail logs, and an alerting state machine. Grafana can use it as a datasource.",
-    metrics: ["1.11 bytes/sample (vs 16 raw)", "160 ns appends, zero allocs", "OTLP in · Prometheus API out", "WAL crash recovery, fuzz-tested codec"],
-    stack: ["Go", "OpenTelemetry", "React", "uPlot"],
-    repo: "https://github.com/alim596/argus",
-  },
-  {
-    id: "vigil",
-    kicker: "Developer tools · CLI",
-    name: "Vigil",
-    img: null,
-    term: [
-      "$ vigil run \"migrate the test suite and make it pass\"",
-      "[vigil] session 89fc0bcb-b7b0-437d-8ae4-c932e1bcda11",
-      "  · Bash",
-      "  · Edit",
-      "[vigil] usage limit hit (reset parsed from message)",
-      "[vigil] waiting 2h14m09s — resuming at Tue 04:00:00",
-      "[vigil] resuming session 89fc0bcb…",
-      "[vigil] task complete after 2 cycle(s).",
-    ],
-    alt: "",
-    desc: "Keeps watch over long Claude Code tasks. When a run dies on a usage limit, Vigil parses the reset time out of the error message, waits it out with a live countdown, and resumes the exact same session until the task is done — the 4am alarm clock, automated. Limits are never bypassed; it just does the waiting and retyping.",
-    metrics: ["layered parser over 4 limit-message formats", "session-id capture → exact resume", "integration-tested via a fake-claude stub", "non-limit failures stop the loop"],
-    stack: ["Go", "CLI", "process orchestration"],
-    repo: "https://github.com/alim596/vigil",
-  },
-  {
     id: "accentra",
     kicker: "AI · Senior capstone (team of 5)",
     name: "Accentra",
@@ -141,18 +76,18 @@ const earlier = [
 
 <Site
   title="Projects — Abdulaleem Altarsha"
-  description="ProjectForge (research-to-software tooling), Meridian (exchange), Quorum (Raft consensus), Argus (observability platform), and Accentra (AI language learning)."
+  description="ProjectForge (research-to-software planning tooling) and Accentra (AI language learning with pronunciation scoring)."
   active="projects"
 >
   <section class="band" style="padding-bottom: 0;">
     <div class="wrap">
       <div class="band-head">
         <span class="kicker">Projects</span>
-        <h2>Built from scratch, measured, shipped</h2>
+        <h2>Owned end to end, shipped</h2>
         <p>
-          Six personal projects and a university capstone. They share a rule: no framework
-          where the interesting part should be — CRDTs, matching engines, consensus,
-          storage engines, and visualizations are hand-built, tested, and benchmarked.
+          A personal project and a university capstone. Both put AI inside a product real
+          users touch — where most of the work is contracts, grounding, failure handling,
+          and tests.
         </p>
       </div>
     </div>
